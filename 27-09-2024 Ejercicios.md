@@ -152,41 +152,61 @@ app.exec()
 
 ``` python
 
-class MainWindow(QMainWindow):
-    class Color(QWidget):
+import sys
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QPushButton, QLabel
+from PyQt6.QtGui import QPalette, QColor
 
+class Color(QWidget):
     def __init__(self, color):
         super(Color, self).__init__()
         self.setAutoFillBackground(True)
-
         palette = self.palette()
         palette.setColor(QPalette.ColorRole.Window, QColor(color))
         self.setPalette(palette)
 
+class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-
         self.setWindowTitle("My App")
 
-        layout = QHBoxLayout()
+        # Cambiamos a un QVBoxLayout
+        layout = QVBoxLayout()
 
+        # Añadimos colores como antes
         layout.addWidget(Color('red'))
         layout.addWidget(Color('green'))
+        
+        # Añadimos un nuevo color (azul)
         layout.addWidget(Color('blue'))
 
+        # Añadimos un QLabel
+        label = QLabel("Este es un label")
+        layout.addWidget(label)
+
+        # Añadimos un QPushButton
+        button = QPushButton("Click me")
+        layout.addWidget(button)
+
+        # Creamos un widget central y lo configuramos
         widget = QWidget()
         widget.setLayout(layout)
         self.setCentralWidget(widget)
+
+app = QApplication(sys.argv)
+window = MainWindow()
+window.show()
+app.exec()
 
 ```
 
 #### Ejercicio 5. Crea un Vertical Layout y un Horizontal Layout Añade 3 botones QButtons en la primera línea y en la otra crea un widget de color.
-
 ``` python
 
-class MainWindow(QMainWindow):
-    class Color(QWidget):
+import sys
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton
+from PyQt6.QtGui import QPalette, QColor
 
+class Color(QWidget):
     def __init__(self, color):
         super(Color, self).__init__()
         self.setAutoFillBackground(True)
@@ -195,20 +215,132 @@ class MainWindow(QMainWindow):
         palette.setColor(QPalette.ColorRole.Window, QColor(color))
         self.setPalette(palette)
 
+class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
 
         self.setWindowTitle("My App")
 
-        layout = QHBoxLayout()
+        # Layout vertical
+        v_layout = QVBoxLayout()
 
-        layout.addWidget(Color('red'))
-        layout.addWidget(Color('green'))
-        layout.addWidget(Color('blue'))
+        # Layout horizontal para los botones
+        h_layout = QHBoxLayout()
+        h_layout.addWidget(QPushButton("Botón 1"))
+        h_layout.addWidget(QPushButton("Botón 2"))
+        h_layout.addWidget(QPushButton("Botón 3"))
 
+        # Añadir el layout horizontal al layout vertical
+        v_layout.addLayout(h_layout)
+
+        # Añadir un widget de color al layout vertical
+        color_widget = Color('lightblue')  # Cambia el color 
+        v_layout.addWidget(color_widget)
+
+        # Crear un widget central y establecer el layout
         widget = QWidget()
-        widget.setLayout(layout)
+        widget.setLayout(v_layout)
         self.setCentralWidget(widget)
+
+app = QApplication(sys.argv)
+window = MainWindow()
+window.show()
+
+app.exec()
 
 ```
 
+#### Ejercicio 5-1. Vertical layout:
+
+``` python
+
+import sys
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QPushButton
+from PyQt6.QtGui import QPalette, QColor
+
+class Color(QWidget):
+    def __init__(self, color):
+        super(Color, self).__init__()
+        self.setAutoFillBackground(True)
+
+        palette = self.palette()
+        palette.setColor(QPalette.ColorRole.Window, QColor(color))
+        self.setPalette(palette)
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super(MainWindow, self).__init__()
+
+        self.setWindowTitle("My App")
+
+        # Layout vertical
+        v_layout = QVBoxLayout()
+
+        v_layout.addWidget(QPushButton("Botón 1"))
+        # Añadir un widget de color al layout vertical
+        color_widget = Color('lightblue')  # Cambia el color 
+        v_layout.addWidget(color_widget)
+        v_layout.addWidget(QPushButton("Botón 2"))
+        v_layout.addWidget(QLabel("Hola"))
+        v_layout.addWidget(QPushButton("Botón 3"))
+
+
+        # Crear un widget central y establecer el layout
+        widget = QWidget()
+        widget.setLayout(v_layout)
+        self.setCentralWidget(widget)
+
+app = QApplication(sys.argv)
+window = MainWindow()
+window.show()
+
+app.exec()
+
+```
+#### Ejercicio 5-2. Horizontal layout:
+
+``` python
+
+import sys
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout, QLabel, QPushButton
+from PyQt6.QtGui import QPalette, QColor
+
+class Color(QWidget):
+    def __init__(self, color):
+        super(Color, self).__init__()
+        self.setAutoFillBackground(True)
+
+        palette = self.palette()
+        palette.setColor(QPalette.ColorRole.Window, QColor(color))
+        self.setPalette(palette)
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super(MainWindow, self).__init__()
+
+        self.setWindowTitle("My App")
+
+        # Layout horizontal
+        h_layout = QHBoxLayout()
+
+        h_layout.addWidget(QPushButton("Botón 1"))
+        # Añadir un widget de color al layout horizontal
+        color_widget = Color('lightblue')  # Cambia el color 
+        h_layout.addWidget(color_widget)
+        h_layout.addWidget(QPushButton("Botón 2"))
+        h_layout.addWidget(QLabel("Hola"))
+        h_layout.addWidget(QPushButton("Botón 3"))
+
+
+        # Crear un widget central y establecer el layout
+        widget = QWidget()
+        widget.setLayout(h_layout)
+        self.setCentralWidget(widget)
+
+app = QApplication(sys.argv)
+window = MainWindow()
+window.show()
+
+app.exec()
+
+```
